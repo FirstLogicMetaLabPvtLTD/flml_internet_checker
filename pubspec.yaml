@@ -1,6 +1,6 @@
 name: flml_internet_checker
 description: "Internet Connectivity Checking Package. This package aims to check internet connection by just wrapping the widget with InternetChecker Widget without using any function calls inside your app"
-version: 0.0.2
+version: 0.0.3
 repository: "https://github.com/FirstLogicMetaLabPvtLTD/flml_internet_checker"
 
 environment:
