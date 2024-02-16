@@ -1,3 +1,7 @@
+## 0.0.4
+
+- README.md updated
+
 ## 0.0.3
 
 - placeholder added, example updated
