@@ -2,11 +2,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:lottie/lottie.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class InternetChecker extends StatefulWidget {
   final Widget _child;
+  final Widget _placeHolder;
   final String _retryText;
   final String _internetConnectionText;
   final String _noInternetSnackBarText;
@@ -14,6 +14,7 @@ class InternetChecker extends StatefulWidget {
   const InternetChecker({
     super.key,
     required Widget child,
+    required Widget placeHolder,
     String? retryText,
     String? internetConnectionText,
     String? noInternetSnackBarText,
@@ -24,6 +25,7 @@ class InternetChecker extends StatefulWidget {
         _btnColor = btnColor ?? Colors.black,
         _noInternetSnackBarText =
             noInternetSnackBarText ?? "No Active Connection Found",
+        _placeHolder = placeHolder,
         _child = child;
 
   @override
@@ -105,9 +107,7 @@ class _InternetCheckPageState extends State<InternetChecker> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Lottie.asset(
-                            "packages/flml_internet_checker/assets/no_internet.json",
-                            height: 250),
+                        child: widget._placeHolder,
                       ),
                       const SizedBox(
                         height: 15,

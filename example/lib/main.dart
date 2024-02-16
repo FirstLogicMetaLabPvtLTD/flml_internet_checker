@@ -1,5 +1,6 @@
-import 'package:example/home_screen.dart';
+import 'package:flml_internet_checker/flml_internet_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,31 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return InternetChecker(
+      placeHolder: Lottie.asset(
+        "assets/no_internet.json",
+        height: 250,
+      ),
+      internetConnectionText: "No Internet Connection",
+      child: const Scaffold(
+        body: Center(
+          child: Text("You are Online"),
+        ),
+      ),
     );
   }
 }
