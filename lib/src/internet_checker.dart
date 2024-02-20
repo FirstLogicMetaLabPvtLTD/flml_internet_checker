@@ -1,30 +1,20 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class InternetChecker extends StatefulWidget {
   final Widget _child;
   final Widget _placeHolder;
-  final String _retryText;
   final String _internetConnectionText;
-  final String _noInternetSnackBarText;
-  final Color _btnColor;
   const InternetChecker({
     super.key,
     required Widget child,
     required Widget placeHolder,
-    String? retryText,
     String? internetConnectionText,
-    String? noInternetSnackBarText,
-    Color? btnColor,
-  })  : _retryText = retryText ?? "Retry",
-        _internetConnectionText =
+  })  : _internetConnectionText =
             internetConnectionText ?? "No Internet Connection",
-        _btnColor = btnColor ?? Colors.black,
-        _noInternetSnackBarText =
-            noInternetSnackBarText ?? "No Active Connection Found",
         _placeHolder = placeHolder,
         _child = child;
 
@@ -50,40 +40,22 @@ class _InternetCheckPageState extends State<InternetChecker> {
   }
 
   var isDeviceConnected = false;
+  StreamSubscription? listener;
 
-  final RoundedLoadingButtonController _btnController =
-      RoundedLoadingButtonController();
-
-  getConnection() async {
-    isDeviceConnected = await InternetConnectionChecker().hasConnection;
-    setState(() {});
-    // ref
-    //     .watch(isDeviceConnectedProvider.notifier)
-    //     .update((state) => isDeviceConnected);
-    if (isDeviceConnected == true) {
-      _btnController.success();
-    } else {
-      _btnController.stop();
-      if (mounted) {
-        showSnackBar(context, widget._noInternetSnackBarText);
-      }
-    }
-
-    Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) async {
-      _btnController.stop();
-      if (result != ConnectivityResult.none) {
-        isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        setState(() {});
-        // ref
-        //     .watch(isDeviceConnectedProvider.notifier)
-        //     .update((state) => isDeviceConnected);
-      } else {
-        _btnController.reset();
-        isDeviceConnected = false;
-        setState(() {});
-        // ref.watch(isDeviceConnectedProvider.notifier).update((state) => false);
+  getConnection() {
+    listener =
+        InternetConnection().onStatusChange.listen((InternetStatus status) {
+      switch (status) {
+        case InternetStatus.connected:
+          // The internet is now connected
+          isDeviceConnected = true;
+          setState(() {});
+          break;
+        case InternetStatus.disconnected:
+          // The internet is now disconnected
+          isDeviceConnected = false;
+          setState(() {});
+          break;
       }
     });
   }
@@ -92,6 +64,12 @@ class _InternetCheckPageState extends State<InternetChecker> {
   void initState() {
     super.initState();
     getConnection();
+  }
+
+  @override
+  void dispose() {
+    listener?.cancel();
+    super.dispose();
   }
 
   @override
@@ -119,22 +97,6 @@ class _InternetCheckPageState extends State<InternetChecker> {
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      RoundedLoadingButton(
-                          height: h * 0.06,
-                          width: w * 0.4,
-                          errorColor: Colors.red,
-                          successColor: Colors.green,
-                          controller: _btnController,
-                          color: widget._btnColor,
-                          onPressed: () {
-                            getConnection();
-                          },
-                          child: Text(widget._retryText,
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white, fontSize: 16))),
                     ])),
           ))
         : widget._child;

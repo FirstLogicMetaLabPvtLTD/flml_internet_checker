@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Web support enabled, retry button removed
+
 ## 0.0.4
 
 - README.md updated
