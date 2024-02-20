@@ -1,3 +1,7 @@
+## 0.0.7
+
+- Showing no internet in first time issue fixed!
+
 ## 0.0.6
 
 - Web support enabled, retry button removed

@@ -39,7 +39,7 @@ class _InternetCheckPageState extends State<InternetChecker> {
     }
   }
 
-  var isDeviceConnected = false;
+  var isDeviceConnected = true;
   StreamSubscription? listener;
 
   getConnection() {
@@ -75,7 +75,6 @@ class _InternetCheckPageState extends State<InternetChecker> {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
-    var h = MediaQuery.of(context).size.height;
     return isDeviceConnected == false
         ? Scaffold(
             body: SafeArea(
