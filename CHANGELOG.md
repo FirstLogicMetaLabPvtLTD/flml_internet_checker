@@ -1,3 +1,7 @@
+## 0.0.8
+
+- sdk version lowered to 2.17.0
+
 ## 0.0.7
 
 - Showing no internet in first time issue fixed!

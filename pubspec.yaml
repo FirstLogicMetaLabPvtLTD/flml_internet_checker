@@ -1,10 +1,10 @@
 name: flml_internet_checker
 description: This package aims to check internet connection by just wrapping the widget with InternetChecker Widget without using any function calls inside your app"
-version: 0.0.7
+version: 0.0.8
 repository: https://github.com/FirstLogicMetaLabPvtLTD/flml_internet_checker
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=2.17.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
