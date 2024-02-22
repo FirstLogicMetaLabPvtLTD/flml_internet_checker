@@ -1,4 +1,4 @@
-## 0.0.8
+## 0.0.9
 
 - sdk version lowered to 2.17.0
 
