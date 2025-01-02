@@ -1,22 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class InternetChecker extends StatefulWidget {
   final Widget _child;
   final Widget _placeHolder;
   final String _internetConnectionText;
+  final TextStyle _textStyle;
   const InternetChecker({
-    super.key,
+    Key? key,
     required Widget child,
     required Widget placeHolder,
     String? internetConnectionText,
+    TextStyle? textStyle,
   })  : _internetConnectionText =
             internetConnectionText ?? "No Internet Connection",
         _placeHolder = placeHolder,
-        _child = child;
+        _textStyle = textStyle ??
+            const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+        _child = child,
+        super(key: key);
 
   @override
   State createState() => _InternetCheckPageState();
@@ -74,7 +82,6 @@ class _InternetCheckPageState extends State<InternetChecker> {
 
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
     return isDeviceConnected == false
         ? Scaffold(
             body: SafeArea(
@@ -91,10 +98,7 @@ class _InternetCheckPageState extends State<InternetChecker> {
                       ),
                       Text(
                         widget._internetConnectionText,
-                        style: GoogleFonts.poppins(
-                            fontSize: w * 0.035,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: widget._textStyle,
                       ),
                     ])),
           ))

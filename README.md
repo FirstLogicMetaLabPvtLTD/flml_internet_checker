@@ -31,7 +31,7 @@ Add the `flml_internet_checker` package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flml_internet_checker: ^0.0.9
+  flml_internet_checker: ^1.0.0
 ```
 
 ### 2. Import the package
